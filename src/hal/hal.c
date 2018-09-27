@@ -68,6 +68,8 @@ static void on_timer(void *arg)
 
 void hal_init(void)
 {
+  hal_init_cpp();
+  
   timer_config_t config;
 
   config.divider = TIMER_DIVIDER;
@@ -110,3 +112,20 @@ void hal_disable_irq(void)
 
 
 #endif /* ifndef MRBC_NO_TIMER */
+
+
+int hal_write(int fd, const void *buf, int nbytes)
+{
+  char* t = (char*)buf;
+  char tbuf[2];
+  if(nbytes==1){
+    tbuf[0]=*t;
+    tbuf[1]='\0';
+    hal_write_string(tbuf);
+    return nbytes;
+  }
+  if(nbytes<82)t[nbytes]='\0';//TODO: double check
+  hal_write_string(t);
+  return nbytes;
+}
+

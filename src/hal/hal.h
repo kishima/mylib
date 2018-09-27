@@ -32,6 +32,8 @@ extern "C" {
 #define MRBC_SCHEDULER_EXIT 1
 #endif
 
+void hal_init_cpp(void);
+void hal_write_string(char* text);
 
 /***** Typedefs *************************************************************/
 /***** Global variables *****************************************************/
@@ -63,10 +65,11 @@ void hal_disable_irq(void);
   @param  buf   pointer of buffer.
   @param  nbytes        output byte length.
 */
-inline static int hal_write(int fd, const void *buf, int nbytes)
-{
-  return write(1, buf, nbytes);
-}
+int hal_write(int fd, const void *buf, int nbytes);
+//inline static int hal_write(int fd, const void *buf, int nbytes)
+//{
+//  return write(1, buf, nbytes);
+//}
 
 //================================================================
 /*!@brief
